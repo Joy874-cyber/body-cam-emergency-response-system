@@ -66,7 +66,7 @@ export function LiveCameraGrid() {
     <div className="space-y-4">
       <div>
         <h2 className="text-2xl font-bold text-cyan-300 mb-2">Live Camera Feed</h2>
-        <p className="text-gray-400 text-sm">Real-time monitoring of active officers</p>
+        <p className="text-slate-200 text-sm">Real-time monitoring of active officers</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -82,7 +82,7 @@ export function LiveCameraGrid() {
             >
               {/* Video area */}
               <div className="relative bg-black aspect-video rounded mb-3 overflow-hidden group">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                <div className="absolute inset-0 flex items-center justify-center text-cyan-200">
                   <div className="text-center">
                     <div className="text-sm font-mono mb-2">FEED STREAM</div>
                     <div className="w-16 h-16 border-2 border-cyan-400/30 rounded mx-auto" />
@@ -122,11 +122,11 @@ export function LiveCameraGrid() {
               <div className="space-y-2">
                 <div>
                   <div className="text-sm font-bold text-cyan-300">{camera.officer}</div>
-                  <div className="text-xs text-gray-400">{camera.unit}</div>
+                  <div className="text-xs text-slate-300">{camera.unit}</div>
                 </div>
 
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-gray-400">{camera.location}</span>
+                  <span className="text-slate-300">{camera.location}</span>
                   <span className={cn(
                     'font-mono',
                     camera.batteryLevel > 50 ? 'text-green-400' : camera.batteryLevel > 20 ? 'text-yellow-400' : 'text-red-400'

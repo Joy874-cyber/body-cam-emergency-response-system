@@ -32,7 +32,7 @@ export function TacticalMap() {
             <MapPin className="w-6 h-6" />
             Tactical Map
           </h2>
-          <p className="text-gray-400 text-sm">Real-time officer positions</p>
+          <p className="text-slate-200 text-sm">Real-time officer positions</p>
         </div>
         <div className="flex items-center gap-2 px-3 py-1 rounded border border-cyan-400/30 bg-cyan-400/5">
           <Grid3x3 className="w-4 h-4 text-cyan-400" />
@@ -98,11 +98,11 @@ export function TacticalMap() {
         <div className="mt-4 grid grid-cols-2 gap-4 pt-4 border-t border-cyan-400/20">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-400 shadow-[0_0_8px_rgba(0,255,136,0.5)]" />
-            <span className="text-xs text-gray-400">Active Officer</span>
+            <span className="text-xs text-slate-200">Active Officer</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-gray-400" />
-            <span className="text-xs text-gray-400">Inactive</span>
+            <span className="text-xs text-slate-200">Inactive</span>
           </div>
         </div>
       </TacticalCard>

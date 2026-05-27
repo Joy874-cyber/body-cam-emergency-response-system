@@ -5,9 +5,8 @@ import { Navbar } from '@/components/navbar';
 import { DashboardSidebar } from '@/components/dashboard-sidebar';
 import { AlertsPanel } from '@/components/alerts-panel';
 import { LiveCameraGrid } from '@/components/live-camera-grid';
-import { TacticalMap } from '@/components/tactical-map';
-import { motion } from 'framer-motion';
-import { BarChart3, Activity, Users, AlertTriangle } from 'lucide-react';
+import { TacticalMap } from '@/components/tactical-map';import { CameraStatus } from '@/components/camera-status';import { motion } from 'framer-motion';
+import { BarChart3, Activity, Users, AlertTriangle, Video, HardDrive } from 'lucide-react';
 import { TacticalCard } from '@/components/tactical-card';
 
 export default function Dashboard() {
@@ -18,6 +17,8 @@ export default function Dashboard() {
     { icon: Activity, label: 'Active Incidents', value: '3', color: 'red' },
     { icon: AlertTriangle, label: 'Alerts Today', value: '24', color: 'yellow' },
     { icon: BarChart3, label: 'Camera Uptime', value: '99.8%', color: 'green' },
+    { icon: Video, label: 'Total Videos', value: '12,584', color: 'cyan' },
+    { icon: HardDrive, label: 'Storage Used', value: '2.4TB', color: 'yellow' },
   ];
 
   return (
@@ -38,7 +39,7 @@ export default function Dashboard() {
             className="mb-8"
           >
             <h1 className="text-3xl font-bold text-cyan-300 mb-2">Command Center Dashboard</h1>
-            <p className="text-gray-400">Real-time monitoring and incident management</p>
+            <p className="text-slate-200">Real-time monitoring and incident management</p>
           </motion.div>
 
           {/* Stats grid */}
@@ -66,12 +67,14 @@ export default function Dashboard() {
                   whileHover={{ y: -5 }}
                 >
                   <div
-                    className={`border rounded-lg p-6 backdrop-blur-md bg-card/40 flex items-start justify-between ${
+                    className={`border border-slate-700/80 rounded-3xl p-6 backdrop-blur-md bg-slate-950/95 flex items-start justify-between ${
                       colorMap[stat.color as keyof typeof colorMap]
-                    } transition-all duration-300`}
+                    } transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,212,255,0.18)]`}
                   >
                     <div>
-                      <p className="text-gray-400 text-sm mb-2">{stat.label}</p>
+                      <p className="text-cyan-200 text-sm font-semibold uppercase tracking-[0.12em] mb-2">
+                        {stat.label}
+                      </p>
                       <p className="text-3xl font-bold text-cyan-300">{stat.value}</p>
                     </div>
                     <Icon className="w-8 h-8 opacity-50" />
@@ -82,27 +85,37 @@ export default function Dashboard() {
           </motion.div>
 
           {/* Main content grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left column - Alerts and Map */}
+          <div className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-1 space-y-8"
             >
-              <AlertsPanel />
-              <TacticalMap />
+              <CameraStatus />
             </motion.div>
 
-            {/* Right column - Camera Grid */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="lg:col-span-2"
-            >
-              <LiveCameraGrid />
-            </motion.div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Left column - Alerts and Map */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="lg:col-span-1 space-y-8"
+              >
+                <AlertsPanel />
+                <TacticalMap />
+              </motion.div>
+
+              {/* Right column - Camera Grid */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="lg:col-span-2"
+              >
+                <LiveCameraGrid />
+              </motion.div>
+            </div>
           </div>
 
           {/* Analytics section */}
@@ -129,7 +142,7 @@ export default function Dashboard() {
                       />
                     ))}
                   </div>
-                  <div className="text-center text-sm text-gray-400">Last 7 days</div>
+                  <div className="text-center text-sm text-slate-200">Last 7 days</div>
                 </div>
               </TacticalCard>
 
@@ -139,9 +152,9 @@ export default function Dashboard() {
                   <h3 className="font-bold text-cyan-300">Average Response Time</h3>
                   <div className="text-center">
                     <div className="text-4xl font-bold text-green-400 mb-2">2.3s</div>
-                    <p className="text-sm text-gray-400">Per alert notification</p>
+                    <p className="text-sm text-slate-200">Per alert notification</p>
                   </div>
-                  <div className="flex justify-around text-xs text-gray-400 pt-4 border-t border-cyan-400/20">
+                  <div className="flex justify-around text-xs text-slate-200 pt-4 border-t border-cyan-400/20">
                     <span>↑ 5% vs last week</span>
                     <span>Peak: 3.2s</span>
                   </div>

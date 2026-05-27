@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ChevronLeft, ChevronRight, Map, AlertCircle, BarChart3, Settings, LogOut } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Map, AlertCircle, BarChart3, Settings, LogOut, Upload, Library, Users, Clock, HardDrive } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -14,6 +14,11 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
@@ -21,10 +26,15 @@ export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
   };
 
   const menuItems = [
-    { href: '#overview', label: 'Overview', icon: BarChart3 },
-    { href: '#alerts', label: 'Alerts', icon: AlertCircle },
-    { href: '#map', label: 'Location Map', icon: Map },
-    { href: '#settings', label: 'Settings', icon: Settings },
+    { href: '/dashboard/overview', label: 'Overview', icon: BarChart3 },
+    { href: '/dashboard/alerts', label: 'Alerts', icon: AlertCircle },
+    { href: '/dashboard/upload', label: 'Upload Video', icon: Upload },
+    { href: '/dashboard/evidence', label: 'Evidence Library', icon: Library },
+    { href: '/dashboard/users', label: 'User Management', icon: Users },
+    { href: '/dashboard/logs', label: 'Access Logs', icon: Clock },
+    { href: '/dashboard/storage', label: 'Storage', icon: HardDrive },
+    { href: '/dashboard/map', label: 'Location Map', icon: Map },
+    { href: '/dashboard/settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -32,7 +42,7 @@ export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
       initial={false}
       animate={{ width: collapsed ? 80 : 240 }}
       transition={{ duration: 0.3 }}
-      className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-sidebar border-r border-sidebar-border glow-border backdrop-blur-md flex flex-col"
+      className="fixed left-0 top-16 h-[calc(100vh-4rem)] bg-slate-950/95 border-r border-cyan-400/20 glow-border backdrop-blur-xl shadow-[0_0_30px_rgba(0,212,255,0.18)] flex flex-col"
     >
       {/* Collapse Button */}
       <button
@@ -50,17 +60,17 @@ export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
       <nav className="flex-1 pt-8 px-3 space-y-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname.includes(item.label.toLowerCase());
+          const isActive = mounted && pathname === item.href;
 
           return (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={cn(
                 'flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 relative group',
                 isActive
                   ? 'bg-cyan-400/20 text-cyan-300 border border-cyan-400/40'
-                  : 'text-gray-400 hover:text-cyan-300 hover:bg-cyan-400/10'
+                  : 'text-slate-200 hover:text-cyan-300 hover:bg-cyan-400/10'
               )}
             >
               <Icon className={cn('w-5 h-5 flex-shrink-0', isActive && 'text-cyan-400')} />
@@ -70,7 +80,7 @@ export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
               {isActive && !collapsed && (
                 <div className="absolute right-2 w-1 h-1 bg-cyan-400 rounded-full" />
               )}
-            </a>
+            </Link>
           );
         })}
       </nav>
@@ -78,7 +88,7 @@ export function DashboardSidebar({ onCollapse }: DashboardSidebarProps) {
       {/* Bottom Items */}
       <div className="border-t border-sidebar-border p-3 space-y-2">
         <button className={cn(
-          'w-full flex items-center gap-3 px-3 py-2 rounded-md text-gray-400 hover:text-red-300 hover:bg-red-400/10 transition-all duration-200'
+          'w-full flex items-center gap-3 px-3 py-2 rounded-md text-slate-100 hover:text-red-300 hover:bg-red-400/10 transition-all duration-200'
         )}>
           <LogOut className="w-5 h-5 flex-shrink-0" />
           {!collapsed && <span className="text-sm font-mono whitespace-nowrap">Logout</span>}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Zap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { EmergencyAlert } from './emergency-alert';
@@ -13,32 +13,54 @@ interface Alert {
   timestamp: string;
 }
 
-const initialAlerts: Alert[] = [
+interface AlertDefinition {
+  id: string;
+  title: string;
+  description: string;
+  level: 'high' | 'medium' | 'low';
+  ageMinutes: number;
+}
+
+const alertDefinitions: AlertDefinition[] = [
   {
     id: '1',
     title: 'Officer Needs Assistance',
     description: 'Unit 12 - Officer Johnson requesting backup at 5th & Main',
     level: 'high',
-    timestamp: new Date(Date.now() - 2 * 60000).toLocaleTimeString(),
+    ageMinutes: 2,
   },
   {
     id: '2',
     title: 'Low Battery Alert',
     description: 'Unit 9 - Officer Chen body camera battery at 35%',
     level: 'medium',
-    timestamp: new Date(Date.now() - 5 * 60000).toLocaleTimeString(),
+    ageMinutes: 5,
   },
   {
     id: '3',
     title: 'GPS Location Update',
     description: 'All units have been repositioned per dispatch orders',
     level: 'low',
-    timestamp: new Date(Date.now() - 10 * 60000).toLocaleTimeString(),
+    ageMinutes: 10,
   },
 ];
 
 export function AlertsPanel() {
-  const [alerts, setAlerts] = useState<Alert[]>(initialAlerts);
+  const [alerts, setAlerts] = useState<Alert[]>(
+    alertDefinitions.map((alert) => ({
+      ...alert,
+      timestamp: '',
+    }))
+  );
+
+  useEffect(() => {
+    setAlerts(
+      alertDefinitions.map((alert) => ({
+        ...alert,
+        timestamp: new Date(Date.now() - alert.ageMinutes * 60000).toLocaleTimeString(),
+      }))
+    );
+  }, []);
 
   const handleDismiss = (id: string) => {
     setAlerts(alerts.filter((alert) => alert.id !== id));
@@ -56,12 +78,12 @@ export function AlertsPanel() {
             <Zap className="w-6 h-6 text-red-400" />
             Active Alerts
           </h2>
-          <p className="text-gray-400 text-sm">{alerts.length} alert{alerts.length !== 1 ? 's' : ''} requiring attention</p>
+          <p className="text-slate-200 text-sm">{alerts.length} alert{alerts.length !== 1 ? 's' : ''} requiring attention</p>
         </div>
         {alerts.length > 0 && (
           <button
             onClick={handleDismissAll}
-            className="px-3 py-1 text-xs font-mono bg-gray-500/20 hover:bg-gray-500/40 border border-gray-500/30 rounded transition-colors text-gray-300"
+            className="px-3 py-1 text-xs font-mono bg-slate-700/20 hover:bg-slate-700/40 border border-slate-600/30 rounded transition-colors text-cyan-200"
           >
             Clear All
           </button>
@@ -101,7 +123,7 @@ export function AlertsPanel() {
             className="border border-green-400/30 rounded-lg p-8 text-center bg-green-950/10 backdrop-blur-sm"
           >
             <div className="text-green-400 text-sm font-mono mb-2">✓ ALL SYSTEMS NORMAL</div>
-            <p className="text-gray-400">No active alerts at this time</p>
+            <p className="text-slate-200">No active alerts at this time</p>
           </motion.div>
         )}
       </AnimatePresence>

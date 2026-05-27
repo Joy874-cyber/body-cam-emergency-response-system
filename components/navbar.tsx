@@ -44,7 +44,7 @@ export function Navbar() {
             <div className="w-8 h-8 bg-cyan-400 rounded flex items-center justify-center relative group-hover:shadow-[0_0_15px_rgba(0,212,255,0.5)] transition-shadow">
               <div className="w-2 h-2 bg-black rounded-full" />
             </div>
-            <span className="font-bold text-cyan-300 hidden sm:inline hud-text">BODYCAM SYSTEM</span>
+            <span className="font-bold text-cyan-300 hidden sm:inline hud-text">SILVERLINE TECH SYSTEM</span>
           </Link>
 
           {/* Desktop Navigation */}

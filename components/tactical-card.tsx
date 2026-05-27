@@ -25,9 +25,9 @@ export function TacticalCard({
   return (
     <div
       className={cn(
-        'border backdrop-blur-md bg-card/40 rounded-md p-4 transition-all duration-300',
+        'border border-slate-700/80 backdrop-blur-md bg-slate-950/90 rounded-md p-4 transition-all duration-300',
         glowClasses[glow],
-        interactive && 'hover:shadow-[0_0_20px_rgba(0,212,255,0.5)] cursor-pointer hover:border-cyan-300/50',
+        interactive && 'hover:shadow-[0_0_30px_rgba(0,212,255,0.45)] cursor-pointer hover:border-cyan-300/50',
         className
       )}
     >

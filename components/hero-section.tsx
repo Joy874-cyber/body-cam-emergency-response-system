@@ -39,49 +39,90 @@ export function HeroSection() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-5xl mx-auto px-6 text-center"
+        className="relative z-10 max-w-7xl mx-auto px-6 grid gap-12 lg:grid-cols-[1.15fr_0.85fr] items-center"
       >
-        {/* Badge */}
-        <motion.div variants={itemVariants} className="mb-8 inline-block">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/50 bg-cyan-400/10 backdrop-blur-sm">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-            <span className="text-xs font-mono text-cyan-300">SYSTEM STATUS: OPERATIONAL</span>
-          </div>
-        </motion.div>
+        <div className="text-center lg:text-left">
+          {/* Badge */}
+          <motion.div variants={itemVariants} className="mb-8 inline-block">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-400/50 bg-cyan-400/10 backdrop-blur-sm">
+              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              <span className="text-xs font-mono text-cyan-300">SYSTEM STATUS: OPERATIONAL</span>
+            </div>
+          </motion.div>
 
-        {/* Main heading */}
-        <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight text-balance">
-          <span className="bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300 bg-clip-text text-transparent">
-            Police Body Camera
-          </span>
-          <br />
-          <span className="text-cyan-100">Emergency Response System</span>
-        </motion.h1>
+          {/* Main heading */}
+          <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight text-balance">
+            <span className="bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300 bg-clip-text text-transparent">
+              Police Body Camera
+            </span>
+            <br />
+            <span className="text-cyan-100">Emergency Response System</span>
+          </motion.h1>
 
-        {/* Subheading */}
-        <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-          Real-time monitoring, emergency alerts, and tactical dispatch integration for modern law enforcement operations
-        </motion.p>
+          {/* Subheading */}
+          <motion.p variants={itemVariants} className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl leading-relaxed">
+            Real-time monitoring, emergency alerts, and tactical dispatch integration for modern law enforcement operations
+          </motion.p>
 
-        {/* CTA Buttons */}
-        <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Link href="/dashboard">
+          {/* CTA Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+            <Link href="/dashboard">
+              <motion.button
+                whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(0, 212, 255, 0.5)' }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-3 bg-cyan-400 text-black font-bold rounded flex items-center gap-2 hover:bg-cyan-300 transition-colors shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+              >
+                Enter Dashboard
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
             <motion.button
-              whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(0, 212, 255, 0.5)' }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-3 bg-cyan-400 text-black font-bold rounded flex items-center gap-2 hover:bg-cyan-300 transition-colors shadow-[0_0_20px_rgba(0,212,255,0.3)]"
+              className="px-8 py-3 border border-cyan-400/50 text-cyan-300 font-bold rounded hover:bg-cyan-400/10 transition-colors"
             >
-              Enter Dashboard
-              <ArrowRight className="w-5 h-5" />
+              Learn More
             </motion.button>
-          </Link>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 border border-cyan-400/50 text-cyan-300 font-bold rounded hover:bg-cyan-400/10 transition-colors"
-          >
-            Learn More
-          </motion.button>
+          </motion.div>
+        </div>
+
+        <motion.div variants={itemVariants} className="space-y-4">
+          <div className="overflow-hidden rounded-[2rem] border border-cyan-400/20 bg-slate-950/80 shadow-xl shadow-cyan-500/10">
+            <img
+              src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1400&q=80"
+              alt="Officer wearing a body camera during patrol"
+              className="h-80 w-full object-cover transition-transform duration-500 hover:scale-105"
+            />
+            <div className="px-5 py-4 bg-slate-950/95">
+              <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">Live Body-Worn Feed</p>
+              <p className="mt-2 text-gray-400 text-sm">A real-time view of officer camera footage in the field.</p>
+            </div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                src: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=800&q=80',
+                alt: 'Control room with monitoring screens',
+                title: 'Incident Monitoring',
+              },
+              {
+                src: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=800&q=80',
+                alt: 'Digital map display with location tracking',
+                title: 'Live Mapping',
+              },
+            ].map((item) => (
+              <div key={item.title} className="overflow-hidden rounded-3xl border border-cyan-400/15 bg-slate-950/80">
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="h-40 w-full object-cover transition-transform duration-500 hover:scale-105"
+                />
+                <div className="px-4 py-3 bg-slate-950/90">
+                  <p className="text-sm font-semibold text-cyan-300">{item.title}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
         {/* Live status widget */}
